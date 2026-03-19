@@ -69,15 +69,15 @@
         // REST API BRIDGE (UNTUK GITHUB PAGES)
         // ==========================================
         // PERHATIAN: GANTI URL DI BAWAH INI DENGAN URL WEB APP GAS ANDA!
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz1G3zgB0_m5ldJY8zl1MbTnfzPIuR3W-YFxqVfHcVdkEm0DJMYRAXUcpFCPlYbWUk/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzMm-1KJZjdVfdrO7P2FuPG1nL10BHqRyN_LohfzdtCYCgI-NaOaAWF0WfG4DNUkKo/exec";
 
         const server = {
             call: async (method, ...args) => {
                 try {
-                    // Menggunakan fetch API untuk mengirim POST request ke GAS
+                    // MENGGUNAKAN FETCH DENGAN SETTING REDIRECT: "FOLLOW" (SANGAT PENTING UNTUK GAS)
                     const response = await fetch(SCRIPT_URL, {
                         method: 'POST',
-                        // Menggunakan text/plain untuk menghindari masalah CORS Preflight
+                        redirect: 'follow', // <--- INI ADALAH KUNCI AGAR TIDAK ERROR BLOKIR BROWSER
                         headers: {
                             'Content-Type': 'text/plain;charset=utf-8', 
                         },
@@ -96,7 +96,7 @@
                     }
                 } catch (error) {
                     console.error("API Error:", error);
-                    throw new Error(error.message || "Gagal terhubung ke server database.");
+                    throw new Error(error.message || "Gagal terhubung ke server database. Pastikan URL Web App sudah benar dan akses diset ke 'Siapa Saja'.");
                 }
             }
         };
@@ -133,7 +133,7 @@
                 e.preventDefault();
                 setLoading(true); setError(null);
                 
-                if (SCRIPT_URL === "https://script.google.com/macros/s/AKfycbz1G3zgB0_m5ldJY8zl1MbTnfzPIuR3W-YFxqVfHcVdkEm0DJMYRAXUcpFCPlYbWUk/exec") {
+                if (SCRIPT_URL === "https://script.google.com/macros/s/AKfycbzMm-1KJZjdVfdrO7P2FuPG1nL10BHqRyN_LohfzdtCYCgI-NaOaAWF0WfG4DNUkKo/exec") {
                     setError("URL Google Apps Script belum di-setting di dalam index.html!");
                     setLoading(false);
                     return;
