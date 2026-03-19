@@ -69,7 +69,7 @@
         // REST API BRIDGE (UNTUK GITHUB PAGES)
         // ==========================================
         // PERHATIAN: GANTI URL DI BAWAH INI DENGAN URL WEB APP GAS ANDA!
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyTa9aTVhiAPH_wKft6kQ_zXmPnHdx9lLbpGGSaoxa5_GoTAiXFNESf9oNj8GtK0g/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz1G3zgB0_m5ldJY8zl1MbTnfzPIuR3W-YFxqVfHcVdkEm0DJMYRAXUcpFCPlYbWUk/exec";
 
         const server = {
             call: async (method, ...args) => {
@@ -133,7 +133,7 @@
                 e.preventDefault();
                 setLoading(true); setError(null);
                 
-                if (SCRIPT_URL === "https://script.google.com/macros/s/AKfycbyTa9aTVhiAPH_wKft6kQ_zXmPnHdx9lLbpGGSaoxa5_GoTAiXFNESf9oNj8GtK0g/exec") {
+                if (SCRIPT_URL === "https://script.google.com/macros/s/AKfycbz1G3zgB0_m5ldJY8zl1MbTnfzPIuR3W-YFxqVfHcVdkEm0DJMYRAXUcpFCPlYbWUk/exec") {
                     setError("URL Google Apps Script belum di-setting di dalam index.html!");
                     setLoading(false);
                     return;
