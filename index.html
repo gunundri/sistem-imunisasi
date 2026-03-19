@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Puskesmas Gandrungmangu 1 - Register Imunisasi</title>
+    <title>Puskesmas Gandrungmangu 1 - Register Imunisasi (v2)</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- React & ReactDOReactDOMM -->
@@ -74,10 +74,10 @@
         const server = {
             call: async (method, ...args) => {
                 try {
-                    // MENGGUNAKAN FETCH DENGAN SETTING REDIRECT: "FOLLOW" (SANGAT PENTING UNTUK GAS)
+                    // MENGGUNAKAN FETCH DENGAN SETTING REDIRECT: "FOLLOW"
                     const response = await fetch(SCRIPT_URL, {
                         method: 'POST',
-                        redirect: 'follow', // <--- INI ADALAH KUNCI AGAR TIDAK ERROR BLOKIR BROWSER
+                        redirect: 'follow', 
                         headers: {
                             'Content-Type': 'text/plain;charset=utf-8', 
                         },
@@ -96,7 +96,11 @@
                     }
                 } catch (error) {
                     console.error("API Error:", error);
-                    throw new Error(error.message || "Gagal terhubung ke server database. Pastikan URL Web App sudah benar dan akses diset ke 'Siapa Saja'.");
+                    let extMsg = error.message;
+                    if(extMsg.includes("Failed to fetch") || extMsg.includes("NetworkError")) {
+                        extMsg = "Blokir Keamanan (CORS Error). Penyebab utamanya:\n1. URL Web App di kode GitHub belum benar/salah ketik.\n2. Akses Deployment di Apps Script TIDAK diset ke 'Siapa saja' (Anyone).\n\nMohon buat Deployment Baru di Apps Script dan pastikan 'Siapa yang memiliki akses' diset ke 'Siapa saja'.";
+                    }
+                    throw new Error(extMsg);
                 }
             }
         };
@@ -111,7 +115,7 @@
             return (
                 <div className={`flex items-start p-4 mb-4 border rounded-lg ${colors}`}>
                     <i className={`${icon} text-xl mr-2 mt-0.5`}></i>
-                    <span className="flex-1 font-medium text-sm">{message}</span>
+                    <span className="flex-1 font-medium text-sm whitespace-pre-line">{message}</span>
                     {onClose && <button onClick={onClose}><i className="ph-x text-lg hover:opacity-70"></i></button>}
                 </div>
             );
@@ -157,7 +161,7 @@
                                 <img src="https://site.smpn4kedungreja.sch.id/jurnalgcp/wp-content/uploads/2026/03/Logo_Puskesmas_Tanpa_Background.png" alt="Logo Puskesmas" className="w-full h-full object-contain" />
                             </div>
                             <h2 className="text-2xl font-bold text-gray-800">Puskesmas Gandrungmangu 1</h2>
-                            <p className="text-gray-500 text-sm mt-1">Register Imunisasi</p>
+                            <p className="text-gray-500 text-sm mt-1">Register Imunisasi (v2)</p>
                         </div>
                         
                         {error && <Alert type="error" message={error} onClose={() => setError(null)} />}
