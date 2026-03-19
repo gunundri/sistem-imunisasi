@@ -31,11 +31,15 @@
                 size: A4 portrait;
                 margin: 0.5cm;
             }
-            body {
+            /* Reset tinggi secara paksa agar tidak membuat halaman kosong baru */
+            html, body, #root {
                 background-color: white !important;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
                 zoom: 0.80; /* Skala diperkecil drastis agar muat banyak baris */
+                height: auto !important;
+                min-height: auto !important;
+                overflow: visible !important;
             }
             /* Menghilangkan border pada input saat dicetak agar rapi */
             input, select, textarea {
@@ -127,7 +131,7 @@
                 e.preventDefault();
                 setLoading(true); setError(null);
                 
-                if (SCRIPT_URL === "MASUKKAN_URL_WEB_APP_GAS_ANDA_DISINI") {
+                if (SCRIPT_URL === "https://script.google.com/macros/s/AKfycbx3axa88oqkwemvzm5ysMA-Ez35Lg21ya9Dk4yNvjK5WOWKofDjt9wKWFEt4OzvqA/exec") {
                     setError("URL Google Apps Script belum di-setting di dalam index.html!");
                     setLoading(false);
                     return;
@@ -542,7 +546,7 @@
                                     <p className="font-medium">Simpan profil bayi terlebih dahulu untuk mulai mencatat riwayat pemeriksaan dan imunisasi.</p>
                                 </div>
                             ) : (
-                                <div className="bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col h-full print:shadow-none print:border-black print:rounded-none">
+                                <div className="bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col h-full print:shadow-none print:border-black print:rounded-none print:h-auto print:block">
                                     <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-gray-50 rounded-t-xl print:bg-transparent print:border-black print:p-2">
                                         <div className="flex items-center gap-2">
                                             <i className="ph-stethoscope text-green-600 text-xl print:text-black"></i>
@@ -552,7 +556,7 @@
                                             <i className="ph-plus mr-1"></i> Catat Baru
                                         </button>
                                     </div>
-                                    <div className="p-0 overflow-x-auto flex-1">
+                                    <div className="p-0 overflow-x-auto flex-1 print:overflow-visible">
                                         <table className="w-full text-sm text-left text-gray-600 print:text-black print:border-collapse border border-gray-200 print:border-black">
                                             <thead className="text-xs text-gray-500 bg-gray-100 border-b print:bg-gray-200 print:text-black print:font-bold">
                                                 <tr>
@@ -593,7 +597,7 @@
                                         </table>
                                         
                                         {/* Tanda Tangan Cetak */}
-                                        <div className="hidden print:flex justify-end mt-4 pr-10">
+                                        <div className="hidden print:flex justify-end mt-4 pr-10 print:break-inside-avoid">
                                             <div className="text-center">
                                                 <p className="mb-8 text-black print:text-xs">Petugas Imunisasi,</p>
                                                 <p className="font-bold underline text-black print:text-xs">___________________________</p>
@@ -649,7 +653,7 @@
             };
 
             return (
-                <div className="min-h-screen flex flex-col bg-gray-100 print:bg-white">
+                <div className="min-h-screen flex flex-col bg-gray-100 print:bg-white print:min-h-0 print:h-auto">
                     <header className="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-30 print:hidden">
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
                             <div className="flex items-center cursor-pointer" onClick={goDashboard}>
