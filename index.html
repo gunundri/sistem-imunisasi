@@ -29,7 +29,9 @@
         @media print {
             @page {
                 size: A4 portrait;
-                margin: 0.5cm;
+                /* Margin urutannya: Atas Kanan Bawah Kiri */
+                /* Kiri dibuat 2cm khusus untuk ruang jilid */
+                margin: 0.5cm 0.5cm 0.5cm 2cm;
             }
             /* Reset tinggi secara paksa agar tidak membuat halaman kosong baru */
             html, body, #root {
